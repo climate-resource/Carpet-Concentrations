@@ -1,0 +1,14 @@
+# Changes here will be overwritten by Copier
+_commit: 2c9b778
+_src_path: ../copier-core-python-repository
+email: zebedee.nicholls@climate-resource.com
+initial_setup: true
+name: Zebedee Nicholls
+notebook_dependencies: true
+plot_dependencies: true
+project_description_short: Core tools for the development of greenhouse gas concentration
+    input files (i.e. flying carpets).
+project_name_human: Carpet - Concentrations
+project_name_pip: carpet-concentrations
+project_name_python: carpet_concentrations
+project_url: https://github.com/climate-resource/carpet-concentrations
