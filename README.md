@@ -61,6 +61,6 @@ through. If not, please raise an issue in the [issue tracker][issue_tracker].
 
 For the rest of our developer docs, please see [](development-reference).
 
-[issue_tracker]: https://github.com/climate-resource/carpet-concentrations/issues
+[issue_tracker]: https://github.com/climate-resource/Carpet-Concentrations/issues
 
 <!--- sec-end-installation-dev -->
