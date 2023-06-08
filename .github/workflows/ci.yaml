@@ -3,7 +3,8 @@
 # https://github.com/LaurenceRawlings/python-poetry-cicd/tree/main/.github/workflows
 
 # #8: take a look at https://github.com/actions/cache/blob/main/caching-strategies.md#make-cache-read-only--reuse-cache-from-centralized-job
-# for caching
+# for caching, or https://github.com/KyleKing/copier-template-tester/tree/main/.github,
+# particularly their use of an internal action for setup
 name: CI
 
 on:
@@ -13,7 +14,7 @@ on:
     tags: ['v*']
 
 jobs:
-  linting-and-docs:
+  linting:
     if: ${{ !github.event.pull_request.draft }}
     runs-on: ubuntu-latest
     steps:
@@ -43,19 +44,49 @@ jobs:
         run: |
           poetry config virtualenvs.create true
           poetry config virtualenvs.in-project true
-          poetry install --no-interaction --no-root --all-extras
+          poetry install --no-interaction --no-root --all-extras --only "main,tests,dev"
       - name: Install package
-        run: poetry install --no-interaction --all-extras
-      - name: black
-        run: poetry run black --check src tests docs/source/conf.py
-      - name: ruff
-        run: poetry run ruff check src tests scripts
+        run: poetry install --no-interaction --only-root
+      - name: pre-commit checks
+        run: poetry run pre-commit run --all-files
       - name: mypy
         run: poetry run mypy src
-      - name: docs-linting
-        run: poetry run blacken-docs --check docs/source/notebooks/*.md
+
+  docs:
+    if: ${{ !github.event.pull_request.draft }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+      - name: Set up python
+        id: setup-python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+      - name: Load cached Poetry installation
+        id: cached-poetry
+        uses: actions/cache@v3
+        with:
+          path: ~/.local  # the path depends on the OS
+          key: poetry-2  # increment to reset cache
+      - name: Install Poetry
+        if: steps.cached-poetry.outputs.cache-hit != 'true'
+        uses: snok/install-poetry@v1
+      - name: Load cached venv
+        id: cached-poetry-dependencies
+        uses: actions/cache@v3
+        with:
+          path: .venv
+          key: "venv-docs-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}"
+      - name: Install dependencies
+        run: |
+          poetry config virtualenvs.create true
+          poetry config virtualenvs.in-project true
+          poetry install --no-interaction --no-root --all-extras --only "main,docs"
+      - name: Install package
+        run: poetry install --no-interaction --only-root
       - name: docs
-        run: poetry run sphinx-build -W --keep-going -b html docs/source docs/build
+        run: poetry run sphinx-build -W --keep-going -T -b html docs/source docs/build
 
   tests:
     strategy:
@@ -93,7 +124,7 @@ jobs:
           poetry config virtualenvs.in-project true
           poetry install --no-interaction --no-root --only main
       - name: Install package
-        run: poetry install --no-interaction --only main
+        run: poetry install --no-interaction --only-root
       - name: Check importable without extras
         run: poetry run python scripts/test-install.py
       - name: Load cached full venv
@@ -109,13 +140,54 @@ jobs:
           poetry install --no-interaction --all-extras
       - name: Run tests
         run: |
-          poetry run pytest -r a -v --doctest-modules --cov --cov-report=term-missing --cov-report=xml
+          poetry run pytest -r a -v src tests --doctest-modules --cov --cov-report=term-missing --cov-report=xml
           poetry run coverage report
+
+  check-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+      - name: Set up python "${{ matrix.python-version }}"
+        id: setup-python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "${{ matrix.python-version }}"
+      - name: Load cached Poetry installation
+        id: cached-poetry
+        uses: actions/cache@v3
+        with:
+          path: ~/.local  # the path depends on the OS
+          key: ${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-poetry-1  # increment to reset cache
+      - name: Install Poetry
+        if: steps.cached-poetry.outputs.cache-hit != 'true'
+        uses: snok/install-poetry@v1
       - name: Build package
         run: |
           poetry build --no-interaction
       - name: Check build
         run: |
           tar -tvf dist/carpet_concentrations-*.tar.gz --wildcards '*carpet_concentrations/py.typed'
+
+      # #9: Upload code coverage if ubuntu with Python python_min_version
+
+  check-commit-messages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+      - name: Set up python "${{ matrix.python-version }}"
+        id: setup-python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "${{ matrix.python-version }}"
+      - name: Check commits
+        run: |
+          pip install commitizen
+          # If you only want to check a certain range (e.g. we
+          # have old commits we don't want to re-write), this
+          # can be changed to
+          # - cz check --rev-range <commit-to-start-from-sha>..HEAD
+          cz check --rev-range HEAD
 
       # #9: Upload code coverage if ubuntu with Python python_min_version
