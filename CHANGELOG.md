@@ -4,7 +4,7 @@
 
 ### Fix
 
-- **{py:clas}`carpet_concentrations.dataset.Input4MIPsMetadata`**: add validation of frequency metadata
+- **{py:class}`carpet_concentrations.dataset.Input4MIPsMetadata`**: add validation of frequency metadata
 
 ## v0.4.0 (2023-06-07)
 
