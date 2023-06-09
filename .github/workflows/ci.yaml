@@ -25,30 +25,16 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: "3.9"
-      - name: Load cached Poetry installation
-        id: cached-poetry
+      - name: Load pip cache
         uses: actions/cache@v3
         with:
-          path: ~/.local  # the path depends on the OS
-          key: poetry-2  # increment to reset cache
-      - name: Install Poetry
-        if: steps.cached-poetry.outputs.cache-hit != 'true'
-        uses: snok/install-poetry@v1
-      - name: Load cached venv
-        id: cached-poetry-dependencies
-        uses: actions/cache@v3
-        with:
-          path: .venv
-          key: "venv-linting-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}"
-      - name: Install dependencies
-        run: |
-          poetry config virtualenvs.create true
-          poetry config virtualenvs.in-project true
-          poetry install --no-interaction --no-root --all-extras --only "main,dev"
-      - name: Install package
-        run: poetry install --no-interaction --only-root
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-mypy-pip
+          restore-keys: ${{ runner.os }}-mypy-pip
+      - name: Install mypy
+        run: pip install mypy
       - name: mypy
-        run: poetry run mypy src
+        run: mypy src
 
   docs:
     if: ${{ !github.event.pull_request.draft }}
@@ -56,33 +42,11 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
-      - name: Set up python
-        id: setup-python
-        uses: actions/setup-python@v4
+      - uses: ./.github/actions/setup
         with:
           python-version: "3.9"
-      - name: Load cached Poetry installation
-        id: cached-poetry
-        uses: actions/cache@v3
-        with:
-          path: ~/.local  # the path depends on the OS
-          key: poetry-2  # increment to reset cache
-      - name: Install Poetry
-        if: steps.cached-poetry.outputs.cache-hit != 'true'
-        uses: snok/install-poetry@v1
-      - name: Load cached venv
-        id: cached-poetry-dependencies
-        uses: actions/cache@v3
-        with:
-          path: .venv
-          key: "venv-docs-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}"
-      - name: Install dependencies
-        run: |
-          poetry config virtualenvs.create true
-          poetry config virtualenvs.in-project true
-          poetry install --no-interaction --no-root --all-extras --only "main,docs"
-      - name: Install package
-        run: poetry install --no-interaction --only-root
+          venv-id: "docs"
+          poetry-dependency-install-flags: "--all-extras --only 'main,docs'"
       - name: docs
         run: poetry run sphinx-build -W --keep-going -T -b html docs/source docs/build
 
@@ -96,70 +60,47 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
-      - name: Set up python "${{ matrix.python-version }}"
-        id: setup-python
-        uses: actions/setup-python@v4
+      - uses: ./.github/actions/setup
         with:
           python-version: "${{ matrix.python-version }}"
-      - name: Load cached Poetry installation
-        id: cached-poetry
-        uses: actions/cache@v3
-        with:
-          path: ~/.local  # the path depends on the OS
-          key: ${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-poetry-1  # increment to reset cache
-      - name: Install Poetry
-        if: steps.cached-poetry.outputs.cache-hit != 'true'
-        uses: snok/install-poetry@v1
-      - name: Load cached venv
-        id: cached-poetry-dependencies
-        uses: actions/cache@v3
-        with:
-          path: .venv
-          key: "venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}"
-      - name: Install dependencies
-        run: |
-          poetry config virtualenvs.create true
-          poetry config virtualenvs.in-project true
-          poetry install --no-interaction --no-root --only main
-      - name: Install package
-        run: poetry install --no-interaction --only-root
-      - name: Check importable without extras
-        run: poetry run python scripts/test-install.py
-      - name: Load cached full venv
-        id: cached-poetry-dependencies-full
-        uses: actions/cache@v3
-        with:
-          path: .venv
-          key: "venv-full-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}"
-      - name: Install full dependencies
-        run: |
-          poetry config virtualenvs.create true
-          poetry config virtualenvs.in-project true
-          poetry install --no-interaction --all-extras
+          venv-id: "tests-${{ runner.os }}"
+          poetry-dependency-install-flags: "--all-extras"
       - name: Run tests
         run: |
           poetry run pytest -r a -v src tests --doctest-modules --cov --cov-report=term-missing --cov-report=xml
           poetry run coverage report
+
+      # #9: Upload code coverage if ubuntu with Python python_min_version
+
+  imports-without-extras:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ "ubuntu-latest" ]
+        python-version: [ "3.9", "3.10", "3.11" ]
+    runs-on: "${{ matrix.os }}"
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+      - uses: ./.github/actions/setup
+        with:
+          python-version: "${{ matrix.python-version }}"
+          venv-id: "imports-without-extras-${{ runner.os }}"
+          poetry-dependency-install-flags: "--only main"
+      - name: Check importable without extras
+        run: poetry run python scripts/test-install.py
 
   check-build:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
-      - name: Set up python "${{ matrix.python-version }}"
-        id: setup-python
-        uses: actions/setup-python@v4
+      - uses: ./.github/actions/setup
         with:
-          python-version: "${{ matrix.python-version }}"
-      - name: Load cached Poetry installation
-        id: cached-poetry
-        uses: actions/cache@v3
-        with:
-          path: ~/.local  # the path depends on the OS
-          key: ${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-poetry-1  # increment to reset cache
-      - name: Install Poetry
-        if: steps.cached-poetry.outputs.cache-hit != 'true'
-        uses: snok/install-poetry@v1
+          python-version: "3.9"
+          venv-id: "check-build-${{ runner.os }}"
+          run-poetry-install: false
+          poetry-dependency-install-flags: "not used"
       - name: Build package
         run: |
           poetry build --no-interaction
@@ -167,4 +108,30 @@ jobs:
         run: |
           tar -tvf dist/carpet_concentrations-*.tar.gz --wildcards '*carpet_concentrations/py.typed'
 
-      # #9: Upload code coverage if ubuntu with Python python_min_version
+  check-commit-messages:
+    if: "${{ !github.event.pull_request.draft }}"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Set up python
+        id: setup-python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+      - name: Load pip cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-check-commits-pip
+          restore-keys: ${{ runner.os }}-check-commits-pip
+      - name: Install commitizen
+        run: pip install commitizen
+      - name: Check commits
+        # If you only want to check a certain range (e.g. we
+        # have old commits we don't want to re-write), this
+        # can be changed to
+        # run: cz check --rev-range <commit-to-start-from-sha>..HEAD
+        run: cz check --rev-range HEAD
