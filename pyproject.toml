@@ -4,7 +4,7 @@ branch = true
 
 [tool.poetry]
 name = "carpet-concentrations"
-version = "0.4.0"
+version = "0.4.1"
 description = "Core tools for the development of greenhouse gas concentration input files (i.e. flying carpets)."
 authors = ["Zebedee Nicholls <zebedee.nicholls@climate-resource.com>"]
 readme = "README.md"
@@ -12,7 +12,7 @@ packages = [{include = "carpet_concentrations", from = "src"}]
 license = "BSD-3-Clause"
 
 [tool.commitizen]
-version = "0.4.0"
+version = "0.4.1"
 version_files = ["pyproject.toml:^version"]
 tag_format = "v$version"
 major_version_zero = true
