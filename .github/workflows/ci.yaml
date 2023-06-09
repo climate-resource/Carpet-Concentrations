@@ -128,3 +128,21 @@ jobs:
         # can be changed to
         # run: cz check --rev-range <commit-to-start-from-sha>..HEAD
         run: cz check --rev-range HEAD
+
+  check-dependency-licences:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+      - uses: ./.github/actions/setup
+        with:
+          python-version: "3.9"
+          venv-id: "licence-check"
+          poetry-dependency-install-flags: "--all-extras"
+      - name: Check licences of dependencies
+        shell: bash
+        run: |
+          TEMP_FILE=$(mktemp)
+          poetry export --only=main --extras=cfxarray --extras=netcdf --extras=notebooks --extras=plots > $TEMP_FILE
+          poetry run liccheck -r $TEMP_FILE -R licence-check.txt
+          cat licence-check.txt
