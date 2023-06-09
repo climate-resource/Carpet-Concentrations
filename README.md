@@ -6,7 +6,7 @@ Core tools for the development of greenhouse gas concentration input files (i.e.
 
 **Repository health :**
 [![CI](https://github.com/climate-resource/Carpet-Concentrations/actions/workflows/ci.yaml/badge.svg?branch=main)](https://github.com/climate-resource/Carpet-Concentrations/actions/workflows/ci.yaml)
-[![Coverage](broken)](broken)
+[![Coverage](https://codecov.io/gh/climate-resource/Carpet-Concentrations/branch/main/graph/badge.svg)](https://codecov.io/gh/climate-resource/Carpet-Concentrations)
 [![Docs](https://readthedocs.org/projects/carpet-concentrations/badge/?version=latest)](https://carpet-concentrations.readthedocs.io)
 
 **PyPI :**
