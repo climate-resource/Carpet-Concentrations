@@ -12,7 +12,7 @@ Core tools for the development of greenhouse gas concentration input files (i.e.
 **PyPI :**
 [![PyPI](https://img.shields.io/pypi/v/carpet-concentrations.svg)](https://pypi.org/project/carpet-concentrations/)
 [![PyPI: Supported Python versions](https://img.shields.io/pypi/pyversions/carpet-concentrations.svg)](https://pypi.org/project/carpet-concentrations/)
-[![PyPI install](broken)](broken)
+[![PyPI install](https://github.com/climate-resource/Carpet-Concentrations/actions/workflows/install.yaml/badge.svg?branch=main)](https://github.com/climate-resource/Carpet-Concentrations/actions/workflows/install.yaml)
 
 **Other info :**
 [![License](https://img.shields.io/github/license/climate-resource/carpet-concentrations.svg)](https://github.com/climate-resource/carpet-concentrations/blob/main/LICENSE)

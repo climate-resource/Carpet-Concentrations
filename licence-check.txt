@@ -1,0 +1,107 @@
+Jinja2 3.1.2 BSD OK
+MarkupSafe 2.1.3 BSD OK
+Pillow 9.5.0 Historical Permission Notice and Disclaimer (HPND) OK
+Pint 0.22 BSD OK
+PyYAML 6.0 MIT OK
+Pygments 2.15.1 BSD OK
+Send2Trash 1.8.2 BSD License OK
+anyio 3.7.0 MIT OK
+appnope 0.1.3 BSD OK
+argon2-cffi 21.3.0 MIT OK
+argon2-cffi-bindings 21.2.0 MIT OK
+arrow 1.2.3 Apache Software OK
+asttokens 2.2.1 Apache 2.0 OK
+attrs 23.1.0 MIT OK
+backcall 0.2.0 BSD OK
+beautifulsoup4 4.12.2 MIT OK
+bleach 6.0.0 Apache Software OK
+certifi 2023.5.7 Mozilla Public License 2.0 (MPL 2.0) OK
+cf-xarray 0.8.1 Apache Software OK
+cffi 1.15.1 MIT OK
+cftime 1.6.2 MIT OK
+charset-normalizer 3.1.0 MIT OK
+comm 0.1.3 BSD OK
+contourpy 1.0.7 BSD OK
+cycler 0.11.0 BSD OK
+debugpy 1.6.7 MIT License OK
+decorator 5.1.1 BSD OK
+defusedxml 0.7.1 Python Software Foundation OK
+executing 1.2.0 MIT OK
+fastjsonschema 2.17.1 BSD OK
+fonttools 4.39.4 MIT OK
+fqdn 1.5.1 Mozilla Public License 2.0 (MPL 2.0) OK
+globalwarmingpotentials 0.9.3 CC0 OK
+idna 3.4 BSD OK
+ipykernel 6.23.1 BSD OK
+ipython 8.14.0 BSD OK
+ipython-genutils 0.2.0 BSD OK
+ipywidgets 8.0.6 BSD OK
+isoduration 20.11.0 ISC License (ISCL) OK
+jedi 0.18.2 MIT OK
+jsonpointer 2.3 BSD OK
+jsonschema 4.17.3 MIT OK
+jupyter-client 8.2.0 BSD OK
+jupyter-core 5.3.0 BSD OK
+jupyter-events 0.6.3 BSD OK
+jupyter-server 2.6.0 BSD OK
+jupyter-server-terminals 0.4.4 BSD OK
+jupyterlab-pygments 0.2.2 BSD OK
+jupyterlab-widgets 3.0.7 BSD OK
+kiwisolver 1.4.4 BSD OK
+matplotlib 3.7.1 Python Software Foundation OK
+matplotlib-inline 0.1.6 BSD 3-Clause OK
+mistune 2.0.5 BSD OK
+nbclassic 1.0.0 BSD OK
+nbclient 0.7.4 BSD OK
+nbconvert 7.4.0 BSD OK
+nbformat 5.9.0 BSD OK
+nest-asyncio 1.5.6 BSD OK
+netCDF4 1.6.4 MIT OK
+notebook 6.5.4 BSD OK
+notebook-shim 0.2.3 BSD OK
+numpy 1.24.3 BSD OK
+openscm-units 0.5.2 BSD OK
+overrides 7.3.1 Apache License, Version 2.0 OK
+packaging 23.1 BSD OK
+pandas 2.0.2 BSD OK
+pandocfilters 1.5.0 BSD OK
+parso 0.8.3 MIT OK
+pexpect 4.8.0 ISC License (ISCL) OK
+pickleshare 0.7.5 MIT OK
+pint-xarray 0.3 Apache Software OK
+platformdirs 3.5.1 MIT OK
+pooch 1.7.0 BSD OK
+prometheus-client 0.17.0 Apache Software OK
+prompt-toolkit 3.0.38 BSD OK
+psutil 5.9.5 BSD OK
+ptyprocess 0.7.0 ISC License (ISCL) OK
+pure-eval 0.2.2 MIT OK
+pycparser 2.21 BSD OK
+pyparsing 3.0.9 MIT OK
+pyrsistent 0.19.3 MIT OK
+python-dateutil 2.8.2 BSD OK
+python-json-logger 2.0.7 BSD OK
+pytz 2023.3 MIT OK
+pyzmq 25.1.0 BSD OK
+requests 2.31.0 Apache Software OK
+rfc3339-validator 0.1.4 MIT OK
+rfc3986-validator 0.1.1 MIT OK
+seaborn 0.12.2 BSD OK
+six 1.16.0 MIT OK
+sniffio 1.3.0 MIT OK
+soupsieve 2.4.1 MIT OK
+stack-data 0.6.2 MIT OK
+terminado 0.17.1 BSD OK
+tinycss2 1.2.1 BSD OK
+tornado 6.3.2 Apache Software OK
+traitlets 5.9.0 BSD OK
+typing-extensions 4.6.3 Python Software Foundation OK
+tzdata 2023.3 Apache Software OK
+uri-template 1.2.0 MIT OK
+urllib3 2.0.3 MIT OK
+wcwidth 0.2.6 MIT OK
+webcolors 1.13 BSD OK
+webencodings 0.5.1 BSD OK
+websocket-client 1.5.2 Apache Software OK
+widgetsnbextension 4.0.7 BSD OK
+xarray 2023.5.0 Apache Software OK
