@@ -2,9 +2,22 @@
 
 <!--- sec-begin-description -->
 
-[TODO badges here]
-
 Core tools for the development of greenhouse gas concentration input files (i.e. flying carpets).
+
+**Repository health :**
+[![CI](https://github.com/climate-resource/Carpet-Concentrations/actions/workflows/ci.yaml/badge.svg?branch=main)](https://github.com/climate-resource/Carpet-Concentrations/actions/workflows/ci.yaml)
+[![Coverage](broken)](broken)
+[![Docs](https://readthedocs.org/projects/carpet-concentrations/badge/?version=latest)](https://carpet-concentrations.readthedocs.io)
+
+**PyPI :**
+[![PyPI](https://img.shields.io/pypi/v/carpet-concentrations.svg)](https://pypi.org/project/carpet-concentrations/)
+[![PyPI: Supported Python versions](https://img.shields.io/pypi/pyversions/carpet-concentrations.svg)](https://pypi.org/project/carpet-concentrations/)
+[![PyPI install](broken)](broken)
+
+**Other info :**
+[![License](https://img.shields.io/github/license/climate-resource/carpet-concentrations.svg)](https://github.com/climate-resource/carpet-concentrations/blob/main/LICENSE)
+[![Last Commit](https://img.shields.io/github/last-commit/climate-resource/carpet-concentrations.svg)](https://github.com/climate-resource/carpet-concentrations/commits/main)
+[![Contributors](https://img.shields.io/github/contributors/climate-resource/carpet-concentrations.svg)](https://github.com/climate-resource/carpet-concentrations/graphs/contributors)
 
 <!---
 Can use start-after and end-before directives in docs, see
@@ -13,7 +26,7 @@ https://myst-parser.readthedocs.io/en/latest/syntax/organising_content.html#inse
 
 <!--- sec-end-description -->
 
-Full documentation can be found at: [TODO read the docs link here]
+Full documentation can be found at: [carpet-concentrations.readthedocs.io](https://carpet-concentrations.readthedocs.io). We recommend reading the docs there because the internal documentation links don't render correctly on GitHub's viewer.
 
 ## Installation
 
