@@ -52,6 +52,8 @@ extensions = [
     "sphinx_copybutton",
     # math support
     "sphinx.ext.mathjax",
+    # support for bibtex entries
+    "sphinxcontrib.bibtex",
 ]
 
 # general sphinx settings
@@ -98,6 +100,7 @@ generate_module_rst_orig = AutoDocGen.generate_module_rst
 def _generate_module_rst_new(*args, **kwargs):
     default = generate_module_rst_orig(*args, **kwargs)
     out = default.lstrip("\n")
+    out = "\n".join([out, ".. footbibliography::"])
     if not out.endswith("\n"):
         out = f"{out}\n"
 
@@ -105,6 +108,7 @@ def _generate_module_rst_new(*args, **kwargs):
 
 
 AutoDocGen.generate_module_rst = _generate_module_rst_new
+
 
 # napoleon extension settings
 # https://www.sphinx-doc.org/en/master/usage/extensions/napoleon.html
@@ -136,6 +140,9 @@ nb_execution_raise_on_error = True
 nb_execution_show_tb = True
 nb_execution_timeout = 120
 nb_custom_formats = {".py": ["jupytext.reads", {"fmt": "py:percent"}]}
+
+# bibtex settings
+bibtex_bibfiles = ["bibliography.bib"]
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output

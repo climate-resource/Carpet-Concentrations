@@ -20,21 +20,13 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
-      - name: Set up python
-        id: setup-python
-        uses: actions/setup-python@v4
+      - uses: ./.github/actions/setup
         with:
           python-version: "3.9"
-      - name: Load pip cache
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-mypy-pip
-          restore-keys: ${{ runner.os }}-mypy-pip
-      - name: Install mypy
-        run: pip install mypy
+          venv-id: "docs"
+          poetry-dependency-install-flags: "--all-extras --only 'main,dev'"
       - name: mypy
-        run: mypy src
+        run: MYPYPATH=stubs poetry run mypy src
 
   docs:
     if: ${{ !github.event.pull_request.draft }}
