@@ -1,7 +1,7 @@
 # Makefile to help automate key steps
 
 .DEFAULT_GOAL := help
-
+TEMP_FILE := $(shell mktemp)
 
 # A helper script to get short descriptions of each target in the Makefile
 define PRINT_HELP_PYSCRIPT
@@ -22,7 +22,7 @@ help:  ## print short description of each target
 .PHONY: checks
 checks:  ## run all the linting checks of the codebase
 	@echo "=== pre-commit ==="; poetry run pre-commit run --all-files || echo "--- pre-commit failed ---" >&2; \
-		echo "=== mypy ==="; poetry run mypy src || echo "--- mypy failed ---" >&2; \
+		echo "=== mypy ==="; MYPYPATH=stubs poetry run mypy src || echo "--- mypy failed ---" >&2; \
 		echo "======"
 
 .PHONY: black
@@ -44,11 +44,13 @@ docs:  ## build the docs
 
 .PHONY: check-commit-messages
 check-commit-messages:  ## check commit messages
-        # If you only want to check a certain range (e.g. we
-        # have old commits we don't want to re-write), this
-        # can be changed to
-        # poetry run cz check --rev-range <commit-to-start-from-sha>..HEAD
 	poetry run cz check --rev-range HEAD
+
+.PHONY: licence-check
+licence-check:  ## Check that licences of the dependencies are suitable
+	poetry export --only=main --extras=cfxarray --extras=netcdf --extras=notebooks --extras=plots > $(TEMP_FILE)
+	poetry run liccheck -r $(TEMP_FILE) -R licence-check.txt
+	rm -f $(TEMP_FILE)
 
 .PHONY: virtual-environment
 virtual-environment:  ## update virtual environment, create a new one if it doesn't already exist

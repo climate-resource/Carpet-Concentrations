@@ -16,10 +16,6 @@ inputs:
     required: false
     default: true
 
-env:
-  POETRY_NO_INTERACTION: 1
-  POETRY_VIRTUALENVS_IN_PROJECT: true
-
 runs:
   using: "composite"
   steps:
@@ -49,6 +45,8 @@ runs:
       if: ${{ inputs.run-poetry-install == 'true' }}
       shell: bash
       run: |
+        poetry config virtualenvs.create true
+        poetry config virtualenvs.in-project true
         poetry install --no-interaction --no-root ${{ inputs.poetry-dependency-install-flags }}
     # Now run same command but let the package install too
     - name: Install package

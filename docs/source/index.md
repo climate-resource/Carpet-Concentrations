@@ -11,6 +11,11 @@
 :end-before: <!--- sec-end-description -->
 ```
 
+These files are often called flying carpets, hence the name. Such gridded
+files can be developed for use cases beyond greenhouse gas concentrations,
+hence this repository should be seen as a subset of wider 'carpet'
+functionality.
+
 ## Installation
 
 ```{include} ../../README.md

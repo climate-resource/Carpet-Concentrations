@@ -4,26 +4,41 @@ branch = true
 
 [tool.poetry]
 name = "carpet-concentrations"
-version = "0.1.0"
+version = "0.4.0"
 description = "Core tools for the development of greenhouse gas concentration input files (i.e. flying carpets)."
 authors = ["Zebedee Nicholls <zebedee.nicholls@climate-resource.com>"]
 readme = "README.md"
 packages = [{include = "carpet_concentrations", from = "src"}]
+license = "BSD-3-Clause"
 
 [tool.commitizen]
-version = "0.1.0"
+version = "0.4.0"
 version_files = ["pyproject.toml:^version"]
 tag_format = "v$version"
 major_version_zero = true
 
 [tool.poetry.dependencies]
 python = "^3.9"
-matplotlib = { version = "^3.7.1", optional = true }
+
 notebook = { version = "^6.5.3", optional = true }
+ipywidgets = { version = "^8.0.6", optional = true }
+matplotlib = { version = "^3.7.1", optional = true }
+seaborn = { version = "^0.12.2", optional = true }
+xarray = "^2023.4.2"
+attrs = "^23.1.0"
+cftime = "^1.6.2"
+openscm-units = "^0.5.2"
+pint = ">=0.19"
+pint-xarray = "^0.3"
+cf-xarray = { version = "^0.8.1", optional = true }
+pooch = { version = "^1.7.0", optional = true }
+netcdf4 = { version = "^1.6.3", optional = true }
 
 [tool.poetry.extras]
-plots = ["matplotlib"]
-notebooks = ["notebook"]
+cfxarray = ["cf-xarray", "pooch"]
+netcdf = ["netcdf4"]
+notebooks = ["notebook", "ipywidgets"]
+plots = ["seaborn"]
 
 [tool.poetry.group.tests.dependencies]
 pytest = "^7.3.1"
@@ -32,9 +47,10 @@ pytest = "^7.3.1"
 myst-nb = "^0.17.0"
 sphinx-rtd-theme = "^1.2.0"
 sphinx-autodoc-typehints = "^1.23.0"
-sphinx-autodocgen = "^1.3"
 jupytext = "^1.14.5"
 sphinx-copybutton = "^0.5.2"
+sphinx-autodocgen = "^1.3"
+sphinxcontrib-bibtex = "^2.5.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest-cov = "^4.0.0"
@@ -45,6 +61,7 @@ commitizen = "^3.1.1"
 mypy = "^1.2.0"
 ruff = "0.0.264"
 pre-commit = "^3.3.1"
+liccheck = "^0.9.1"
 
 [build-system]
 requires = ["poetry-core"]
@@ -95,9 +112,7 @@ select = [
     "RUF",  # ruff specifics
     "UP",  # pyupgrade
     "S",  # flake8-bandit
-    # pandas support via pandas-vet. In some cases we will want to disable
-    # this because it can lead to too many false positives.
-    "PD",
+    # xarray repo, no PD
 ]
 unfixable = [
     "PD002",  # Disable autofix for inplace as this often introduces bugs
@@ -123,9 +138,41 @@ line-length = 110
 "scripts/*" = [
     "S101" # S101 Use of `assert` detected
 ]
+"*.pyi" = ["D100", "D101", "D102", "PL"]
 
 [tool.ruff.isort]
 known-first-party = ["src"]
 
 [tool.ruff.pydocstyle]
 convention = "numpy"
+
+[tool.liccheck]
+authorized_licenses = [
+    "bsd",
+    "bsd license",
+    "BSD 3-Clause",
+    "CC0",
+    "apache",
+    "apache 2.0",
+    "apache software",
+    "apache software license",
+    "Apache License, Version 2.0",
+    "gnu lgpl",
+    "lgpl with exceptions or zpl",
+    "LGPLv2+",
+    "GNU Lesser General Public License v2 (LGPLv2)",
+    "GNU Lesser General Public License v2 or later (LGPLv2+)",
+    "gpl v3",
+    "gplv3",
+    "Historical Permission Notice and Disclaimer (HPND)",
+    "isc license",
+    "isc license (iscl)",
+    "mit",
+    "mit license",
+    "Mozilla Public License 2.0 (MPL 2.0)",
+    "python software foundation",
+    "python software foundation license",
+    "zpl 2.1",
+]
+unauthorized_licenses = [
+]

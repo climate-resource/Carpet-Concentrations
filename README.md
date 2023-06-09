@@ -2,7 +2,7 @@
 
 <!--- sec-begin-description -->
 
-[#5 badges here]
+[TODO badges here]
 
 Core tools for the development of greenhouse gas concentration input files (i.e. flying carpets).
 
@@ -13,7 +13,7 @@ https://myst-parser.readthedocs.io/en/latest/syntax/organising_content.html#inse
 
 <!--- sec-end-description -->
 
-Full documentation can be found at: [#6 read the docs link here]
+Full documentation can be found at: [TODO read the docs link here]
 
 ## Installation
 
@@ -61,6 +61,6 @@ through. If not, please raise an issue in the [issue tracker][issue_tracker].
 
 For the rest of our developer docs, please see [](development-reference).
 
-[issue_tracker]: https://github.com/climate-resource/Carpet-Concentrations/issues
+[issue_tracker]: https://gitlab.com/climate-resource/carpet-concentrations/issues
 
 <!--- sec-end-installation-dev -->
