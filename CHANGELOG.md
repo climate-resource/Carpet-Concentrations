@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.4.2 (2023-06-09)
+
+### Fix
+
+- **CHANGELOG.md**: fix typo in CHANGELOG
+
 ## v0.4.1 (2023-06-09)
 
 ### Fix
