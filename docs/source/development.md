@@ -70,7 +70,15 @@ API token -> create a token just for this package.
 
 #### GitHub
 
+Create a [personal access token](https://docs.github.com/en/enterprise-server@3.4/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#about-personal-access-tokens)
+that can be used to write to the repository as part of GitHub actions. It is best to use the fine-grained tokens and only give the token access to this repository. The token will need "Contents" permissions, specifically read and write access for "Contents".
+
+If you can't create a token, the organisation may need to enable personal access token access. Please ask one of the lead developers.
 [TODO: write docs about getting secrets.PERSONAL_ACCESS_TOKEN setup properly]
+
+Once you have your token, add it to a repository secret (Settings ->
+Secrets and variables -> Actions -> New repository secret) called
+`PERSONAL_ACCESS_TOKEN`.
 
 Finally, add a PYPI token for the project to a repository secret (Settings ->
 Secrets and variables -> Actions -> New repository secret) called `PYPI_TOKEN`.
@@ -81,7 +89,19 @@ this project.
 
 Releasing is semi-automated. The steps required are the following:
 
-[TODO write these steps]
+1. Bump the version: manually trigger the "bump" workflow from the main branch
+   (see here:
+   https://github.com/climate-resource/Carpet-Concentrations/actions/workflows/bump.yaml).
+   [TODO careful propagating this]
+   This will then trigger a draft release.
+
+1. Edit the draft release which has been created
+   (see here:
+   https://github.com/climate-resource/Carpet-Concentrations/releases).
+   [TODO careful propagating this]
+   Once you are happy with the release (removed placeholders, added key
+   announcements etc.) then hit 'Publish release'. This triggers a release to
+   PyPI (which you can then add to the release if you want).
 
 1. That's it, release done, make noise on social media of choice, do whatever
    else
