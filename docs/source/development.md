@@ -26,7 +26,56 @@ this project.
 If this is the first time you're setting up the repository, read this section.
 If this repository is already setup, you can skip it.
 
+#### PyPI
+
+This step can be skipped if you give the CI a global token for PyPI. However,
+we don't recommend doing this. Assuming you want to generate a PyPI token just
+for this project, the first thing you have to do is push your project to PyPI.
+Once setup, this will happen automatically, but the first one has to be done
+locally.
+
+To do this, firstly tag the project locally with "v0.1.0". It doesn't really
+matter which commit you do this on.
+
+Then, build the project locally with
+
+```bash
+poetry build
+```
+
+Assuming this runs without error, setup poetry so it can push to PyPI (or skip
+this step and just pass your username and password in the next step). You can
+either do this with a token or your username and password (also see
+[the box here](https://python-poetry.org/docs/repositories/#configuring-credentials)).
+
+```bash
+# token based (this token will need global scope for the first push)
+poetry config pypi-token.pypi <my-token>
+# password based
+poetry config http-basic.pypi <username> <password>
+```
+
+Then, publish the package to PyPI.
+
+```bash
+poetry publish
+# Alternately pass username and password with
+poetry publish --username=USERNAM --password=PASSWORD
+```
+
+Assuming this runs smoothly, your package is now on PyPI. You can generate a
+token just for your package that can be used by GitLab in the CI by going to
+PyPI -> Account settings (in drop down under your name) -> API tokens -> Add
+API token -> create a token just for this package.
+
+#### GitHub
+
 [TODO: write docs about getting secrets.PERSONAL_ACCESS_TOKEN setup properly]
+
+Finally, add a PYPI token for the project to a repository secret (Settings ->
+Secrets and variables -> Actions -> New repository secret) called `PYPI_TOKEN`.
+We recommend restricting your PyPI access token so it only has the scope of
+this project.
 
 ### Standard process
 
