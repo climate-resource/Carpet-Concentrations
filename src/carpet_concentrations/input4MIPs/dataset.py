@@ -19,6 +19,7 @@ from carpet_concentrations.input4MIPs.metadata_options import (
     CONVENTION_OPTIONS,
     CREATION_DATE_REGEX,
     DATASET_CATEGORY_OPTIONS,
+    FREQUENCY_OPTIONS,
     INCLUDES_EMAIL_REGEX,
     UUID_REGEX,
 )
@@ -59,7 +60,7 @@ class Input4MIPsMetadata:
     dataset_category: str = field(validator=in_(DATASET_CATEGORY_OPTIONS))
     """Datset category"""
 
-    frequency: str
+    frequency: str = field(validator=in_(FREQUENCY_OPTIONS))
     """Time frequency of the dataset"""
 
     further_info_url: str

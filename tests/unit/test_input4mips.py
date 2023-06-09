@@ -62,7 +62,7 @@ def test_valid_input_input4mips_metadata(valid_input_input4mips_metadata):
         ("contact", "Mr. Big", ValueError, "'contact' must match regex"),
         ("Conventions", "junkghjasd", ValueError, "'Conventions' must be in"),
         ("dataset_category", "junkghjasd", ValueError, "'dataset_category' must be in"),
-        ("frequency", "daily", ValueError, "'frequency' must be in {'1hr', '1hrCM'}"),
+        ("frequency", "daily", ValueError, r"'frequency' must be in \('1hr'"),
     ],
 )
 def test_invalid_input_input4mips_metadata(
