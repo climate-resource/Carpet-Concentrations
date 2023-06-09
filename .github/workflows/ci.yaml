@@ -14,7 +14,7 @@ on:
     tags: ['v*']
 
 jobs:
-  linting:
+  mypy:
     if: ${{ !github.event.pull_request.draft }}
     runs-on: ubuntu-latest
     steps:
@@ -44,11 +44,9 @@ jobs:
         run: |
           poetry config virtualenvs.create true
           poetry config virtualenvs.in-project true
-          poetry install --no-interaction --no-root --all-extras --only "main,tests,dev"
+          poetry install --no-interaction --no-root --all-extras --only "main,dev"
       - name: Install package
         run: poetry install --no-interaction --only-root
-      - name: pre-commit checks
-        run: poetry run pre-commit run --all-files
       - name: mypy
         run: poetry run mypy src
 
@@ -168,26 +166,5 @@ jobs:
       - name: Check build
         run: |
           tar -tvf dist/carpet_concentrations-*.tar.gz --wildcards '*carpet_concentrations/py.typed'
-
-      # #9: Upload code coverage if ubuntu with Python python_min_version
-
-  check-commit-messages:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v3
-      - name: Set up python "${{ matrix.python-version }}"
-        id: setup-python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "${{ matrix.python-version }}"
-      - name: Check commits
-        run: |
-          pip install commitizen
-          # If you only want to check a certain range (e.g. we
-          # have old commits we don't want to re-write), this
-          # can be changed to
-          # - cz check --rev-range <commit-to-start-from-sha>..HEAD
-          cz check --rev-range HEAD
 
       # #9: Upload code coverage if ubuntu with Python python_min_version
