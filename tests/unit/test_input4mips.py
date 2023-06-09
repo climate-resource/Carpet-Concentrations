@@ -62,6 +62,7 @@ def test_valid_input_input4mips_metadata(valid_input_input4mips_metadata):
         ("contact", "Mr. Big", ValueError, "'contact' must match regex"),
         ("Conventions", "junkghjasd", ValueError, "'Conventions' must be in"),
         ("dataset_category", "junkghjasd", ValueError, "'dataset_category' must be in"),
+        ("frequency", "daily", ValueError, "'frequency' must be in {'1hr', '1hrCM'}"),
     ],
 )
 def test_invalid_input_input4mips_metadata(
@@ -81,7 +82,6 @@ def test_invalid_input_input4mips_metadata(
 
 
 # Tests to write:
-# - dataset_category has set of choices too [TODO look these up]
 # - frequency has set of choices too [TODO look these up]
 # - further_info_url is a URL
 # - grid_label has set of choices too [TODO look these up]
