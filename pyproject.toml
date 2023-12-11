@@ -61,6 +61,7 @@ commitizen = "^3.1.1"
 mypy = "^1.2.0"
 ruff = "0.0.264"
 pre-commit = "^3.3.1"
+towncrier = "^23.6.0"
 liccheck = "^0.9.1"
 
 [build-system]
@@ -145,6 +146,50 @@ known-first-party = ["src"]
 
 [tool.ruff.pydocstyle]
 convention = "numpy"
+
+[tool.towncrier]
+package = "carpet_concentrations"
+package_dir = "src"
+filename = "docs/source/changelog.md"
+directory = "changelog/"
+title_format = "## carpet-concentrations {version} ({project_date})"
+underlines = ["", "", ""]
+issue_format = "[#{issue}](https://github.com/climate-resource/Carpet-Concentrations/pulls/{issue})"
+
+  [[tool.towncrier.type]]
+  directory = "breaking"
+  name = "Breaking Changes"
+  showcontent = true
+
+  [[tool.towncrier.type]]
+  directory = "deprecation"
+  name = "Deprecations"
+  showcontent = true
+
+  [[tool.towncrier.type]]
+  directory = "feature"
+  name = "Features"
+  showcontent = true
+
+  [[tool.towncrier.type]]
+  directory = "improvement"
+  name = "Improvements"
+  showcontent = true
+
+  [[tool.towncrier.type]]
+  directory = "fix"
+  name = "Bug Fixes"
+  showcontent = true
+
+  [[tool.towncrier.type]]
+  directory = "docs"
+  name = "Improved Documentation"
+  showcontent = true
+
+  [[tool.towncrier.type]]
+  directory = "trivial"
+  name = "Trivial/Internal Changes"
+  showcontent = false
 
 [tool.liccheck]
 authorized_licenses = [
