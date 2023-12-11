@@ -34,9 +34,20 @@ black:  ## format the code using black
 ruff-fixes:  ## fix the code using ruff
 	poetry run ruff src tests scripts docs/source/conf.py docs/source/notebooks/*.py --fix
 
+
 .PHONY: test
 test:  ## run the tests
-	poetry run pytest src tests -r a -v --doctest-modules --cov
+	poetry run pytest src tests -r a -v --doctest-modules --cov=src
+
+# Note on code coverage and testing:
+# You must specify cov=src as otherwise funny things happen when doctests are
+# involved.
+# If you want to debug what is going on with coverage, we have found
+# that adding COVERAGE_DEBUG=trace to the front of the below command
+# can be very helpful as it shows you if coverage is tracking the coverage
+# of all of the expected files or not.
+# We are sure that the coverage maintainers would appreciate a PR that improves
+# the coverage handling when there are doctests and a `src` layout like ours.
 
 .PHONY: docs
 docs:  ## build the docs
@@ -45,6 +56,10 @@ docs:  ## build the docs
 .PHONY: check-commit-messages
 check-commit-messages:  ## check commit messages
 	poetry run cz check --rev-range HEAD
+
+.PHONY: changelog-draft
+changelog-draft:  ## compile a draft of the next changelog
+	poetry run towncrier build --draft
 
 .PHONY: licence-check
 licence-check:  ## Check that licences of the dependencies are suitable
