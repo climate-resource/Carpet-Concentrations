@@ -190,6 +190,11 @@ def test_format_date(date, freq, exp):
     assert res == exp
 
 
+def test_format_date_not_implemented():
+    with pytest.raises(NotImplementedError, match="junk"):
+        format_date("mock", ds_frequency="junk")
+
+
 def test_add_time_bounds_name_clash():
     inp = xr.Dataset(
         {
