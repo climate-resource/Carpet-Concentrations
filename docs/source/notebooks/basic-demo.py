@@ -15,13 +15,12 @@
 # %% [markdown]
 # # Basic demo
 #
-# This notebook gives a basic demonstration of how to use Carpet - concentrations.
-
-# %%
-# TODO: write demo
+# This notebook gives a basic demonstration of how to use Carpet - Concentrations.
 
 # %%
 import carpet_concentrations
 
 # %%
-print(f"{carpet_concentrations.__version__=}")
+print(
+    f"You are using carpet_concentrations version {carpet_concentrations.__version__}"
+)
