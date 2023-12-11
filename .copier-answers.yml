@@ -1,10 +1,11 @@
 # Changes here will be overwritten by Copier
-_commit: v0.2.0
+_commit: v0.3.0
 _src_path: ../copier-core-python-repository
 email: zebedee.nicholls@climate-resource.com
-initial_setup: true
+initial_setup: false
 name: Zebedee Nicholls
 notebook_dependencies: true
+pandas_doctests: true
 plot_dependencies: true
 project_description_short: Core tools for the development of greenhouse gas concentration
     input files (i.e. flying carpets).
