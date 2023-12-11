@@ -2381,14 +2381,14 @@ files = [
 
 [[package]]
 name = "openscm-units"
-version = "0.5.3"
+version = "0.5.4"
 description = "Handling of units related to simple climate modelling."
 category = "main"
 optional = false
 python-versions = ">=3.9,<4.0"
 files = [
-    {file = "openscm_units-0.5.3-py3-none-any.whl", hash = "sha256:c768bfea69565a4e2f1560abd7362c8a78e2dc859839a2a42a2e95d94164c7a3"},
-    {file = "openscm_units-0.5.3.tar.gz", hash = "sha256:a78d0b50fe0a6c1b711941ea1c575bfdd913288e31f4c03b0f9e3fbafbed3706"},
+    {file = "openscm_units-0.5.4-py3-none-any.whl", hash = "sha256:6da46c2eaf37d1fc4df768050d6222c96d053b2c409c94cc41449a3ebffcaf93"},
+    {file = "openscm_units-0.5.4.tar.gz", hash = "sha256:76429369e221084b6b41757369c536f852abc44679070f600ed72124fd58f9f9"},
 ]
 
 [package.dependencies]
