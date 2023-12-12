@@ -467,12 +467,13 @@ def format_date(
     -------
         Formatted date
     """
-    if ds_frequency.endswith("mon"):
-        datestring = date.strftime("%Y%m")
-    else:
-        raise NotImplementedError(ds_frequency)
+    if ds_frequency.startswith("mon"):
+        return date.strftime("%Y%m")
 
-    return datestring
+    if ds_frequency.startswith("yr"):
+        return date.strftime("%Y")
+
+    raise NotImplementedError(ds_frequency)
 
 
 def get_version(creation_date: str) -> str:

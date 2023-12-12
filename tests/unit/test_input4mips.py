@@ -3,6 +3,7 @@ Test :mod:`carpet_concentrations.input4mips`
 """
 import re
 
+import cftime
 import pytest
 import xarray as xr
 
@@ -173,9 +174,25 @@ def test_from_metadata_autoadd_bounds_to_dimensions_multivar():
         )
 
 
+@pytest.mark.parametrize(
+    "date, freq, exp",
+    (
+        (cftime.DatetimeGregorian(2012, 1, 3), "mon", "201201"),
+        (cftime.DatetimeGregorian(2012, 4, 1), "mon", "201204"),
+        (cftime.DatetimeGregorian(2022, 1, 3), "yr", "2022"),
+        (cftime.DatetimeGregorian(2022, 11, 13), "yr", "2022"),
+        (cftime.DatetimeGregorian(1, 11, 13), "mon", "000111"),
+        (cftime.DatetimeGregorian(1, 11, 13), "yr", "0001"),
+    ),
+)
+def test_format_date(date, freq, exp):
+    res = format_date(date, ds_frequency=freq)
+    assert res == exp
+
+
 def test_format_date_not_implemented():
-    with pytest.raises(NotImplementedError, match="yr"):
-        format_date("mock", ds_frequency="yr")
+    with pytest.raises(NotImplementedError, match="junk"):
+        format_date("mock", ds_frequency="junk")
 
 
 def test_add_time_bounds_name_clash():
