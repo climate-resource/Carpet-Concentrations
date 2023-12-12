@@ -19,6 +19,18 @@ of rst and use slightly different categories.
 
 <!-- towncrier release notes start -->
 
+## carpet-concentrations v0.5.0 (2023-12-12)
+
+
+### Improvements
+
+- Added support for "yr" frequency in :func:`format_date` ([#7](https://github.com/climate-resource/Carpet-Concentrations/pulls/7))
+
+### Trivial/Internal Changes
+
+- [#9](https://github.com/climate-resource/Carpet-Concentrations/pulls/9)
+
+
 ## carpet-concentrations v0.4.2 (2023-06-09)
 
 ### Fix
