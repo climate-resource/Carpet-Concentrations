@@ -4,7 +4,7 @@ branch = true
 
 [tool.poetry]
 name = "carpet-concentrations"
-version = "0.5.0"
+version = "0.5.1"
 description = "Core tools for the development of greenhouse gas concentration input files (i.e. flying carpets)."
 authors = ["Zebedee Nicholls <zebedee.nicholls@climate-resource.com>"]
 readme = "README.md"

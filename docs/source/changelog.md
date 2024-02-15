@@ -19,6 +19,14 @@ of rst and use slightly different categories.
 
 <!-- towncrier release notes start -->
 
+## carpet-concentrations v0.5.1 (2024-02-15)
+
+
+### Bug Fixes
+
+- Loosened dependencies ([#13](https://github.com/climate-resource/Carpet-Concentrations/pulls/13))
+
+
 ## carpet-concentrations v0.5.0 (2023-12-12)
 
 
